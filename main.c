@@ -16,22 +16,22 @@ void *lunch_counter(void *storage_input)
 		count++;
 	}
 	pthread_mutex_lock(&storage->someone_write);
-	
+
 }
 
-int create_thread(t_storage *storage)
-{
-	pthread_t	thread;
-	int i;
+// int create_thread(t_storage *storage)
+// {
+// 	pthread_t	thread;
+// 	int i;
 
-	storage->time = get_time();
-	if (storage->input->number_of_times_each_philosopher_must_eat > 0)
-	{
-		if (pthread_create(&thread, 0, &m, (void*)storage) != 0)
-			return (ft_putstr_fd("Can't create thread\n", 1));
-		pthread_detach(thread);
-	}
-}
+// 	storage->time_start = my_time();
+// 	if (storage->input->number_of_times_each_philosopher_must_eat > 0)
+// 	{
+// 		if (pthread_create(&thread, 0, &m, (void*)storage) != 0)
+// 			return (ft_putstr_fd("Can't create thread\n", 1));
+// 		pthread_detach(thread);
+// 	}
+// }
 
 int	main(int argc, char **argv)
 {
@@ -43,6 +43,6 @@ int	main(int argc, char **argv)
 		return (ft_putstr_fd("Wrong number of arguments\n", 1));
 	if (initialization(&storage, argc, argv))
 		return (ft_exit(&storage));
-	if (create_thread(&storage))
-		return (ft_exit(&storage));
+// 	if (create_thread(&storage))
+// 		return (ft_exit(&storage));
 }

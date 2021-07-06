@@ -5,6 +5,8 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdlib.h>
+# include <unistd.h>
+# include <stdio.h>
 
 typedef struct s_philosopher
 {
@@ -37,12 +39,16 @@ typedef struct s_storage
 	pthread_mutex_t	*arr_of_forks;
 	pthread_mutex_t	someone_write;
 	pthread_mutex_t	someone_dead;
+	pthread_mutex_t	someone_thinking;
 	int				is_dead;
+	size_t			how_many_times_eat;
 	size_t			time_start;
 }	t_storage;
 
 long			ft_atoi(const char *nptr);
 int				ft_putstr_fd(char *s, int fd);
 unsigned long	my_time(void);
+int				ft_exit(t_storage *storage);
+int				initialization(t_storage *storage, int argc, char **argv);
 
 #endif

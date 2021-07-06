@@ -26,11 +26,9 @@ static void ft_exit2(t_storage *storage, int i)
 
 int ft_exit(t_storage *storage)
 {
-	int i;
-
 	ft_exit2(storage, 0);
 	ft_exit3(storage, 0);
 	pthread_mutex_destroy(&storage->someone_dead);
-	pthread_mutex_destroy(&storage->someone_write);
+	pthread_mutex_destroy(&storage->print);
 	return (1);
 }

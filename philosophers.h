@@ -8,6 +8,11 @@
 # include <unistd.h>
 # include <stdio.h>
 
+# define FORK "🍴"
+# define FORK_AND_PLATE "🍽 🍝"
+# define SLEEP "🛌 💤"
+# define THINK "🤔 💭"
+
 typedef struct s_philosopher
 {
 	int					position;
@@ -43,8 +48,8 @@ typedef struct s_storage
 	pthread_mutex_t	someone_thinking;
 	int				is_dead;
 	int				total_number_of_meals;
-	int			how_many_times_eat;
-	unsigned long			time_start;
+	int				how_many_times_eat;
+	unsigned long	time_start;
 }	t_storage;
 
 long			ft_atoi(const char *nptr);

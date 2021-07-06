@@ -11,7 +11,6 @@ void *check_is_dead(void *ptr)
 		pthread_mutex_lock(&philo->eating);
 		if (my_time() - philo->last_eat > (unsigned int)philo->stor->input->time_to_die && philo->stor->is_dead == 0)
 		{
-			printf("--->%lu && %lu \n", my_time() - philo->last_eat, (unsigned long)philo->stor->input->time_to_die);
 			philo->stor->is_dead = 1;
 			pthread_mutex_unlock(&philo->eating);
 			pthread_mutex_lock(&philo->stor->someone_dead);
@@ -26,14 +25,14 @@ void *check_is_dead(void *ptr)
 	return (0);
 }
 
-void			printf_pro(t_philosopher *p, char *str)
+void			printf_pro(t_philosopher *p, char *str, char *smile)
 {
 	if (p->stor->is_dead == 0 && p->stor->total_number_of_meals != 0)
 	{
 		pthread_mutex_lock(&p->stor->print);
 		if (!p->stor->is_dead && p->stor->total_number_of_meals != 0)
-			printf("%lu ms %d %s\n", (my_time() - p->stor->time_start),
-			p->position, str);
+			printf("%lu ms %d %s %s\n", (my_time() - p->stor->time_start),
+			p->position, str, smile);
 		pthread_mutex_unlock(&p->stor->print);
 	}
 }
@@ -50,27 +49,22 @@ void			my_sleep(int time, t_storage *all)
 void eating_spaghetti(t_philosopher *p)
 {
 	pthread_mutex_lock(&p->stor->arr_of_forks[p->right_fork]);
-	printf_pro(p, "has taken a right fork");
+	printf_pro(p, "has taken a right fork", FORK);
 	pthread_mutex_lock(&p->stor->arr_of_forks[p->left_fork]);
-	printf_pro(p, "has taken a left fork");
+	printf_pro(p, "has taken a left fork", FORK);
 	pthread_mutex_lock(&p->eating);
 	p->last_eat = my_time();
-	printf_pro(p, "is eating");
+	printf_pro(p, "is eating", FORK_AND_PLATE);
 	p->how_many_times_eat++;
 	if (p->stor->total_number_of_meals  > 0)
 		p->stor->total_number_of_meals--;
-	//my_sleep(p->stor->input->time_to_eat, p->stor);
-	//while (p->stor->input->time_to_eat > 0 && p->stor->is_dead == 0)
-	//	usleep(p->stor->input->time_to_eat);
-	//my_sleep(p->all->t_eat, p->all);
+	my_sleep(p->stor->input->time_to_eat, p->stor);
 	pthread_mutex_unlock(&p->eating);
 	pthread_mutex_unlock(&p->stor->arr_of_forks[p->right_fork]);
 	pthread_mutex_unlock(&p->stor->arr_of_forks[p->left_fork]);
-	printf_pro(p, "is sleeping");
+	printf_pro(p, "is sleeping", SLEEP);
 	my_sleep(p->stor->input->time_to_sleep, p->stor);
-	//while (p->stor->input->time_to_sleep > 0 && p->stor->is_dead == 0)
-	//	usleep(p->stor->input->time_to_sleep);
-	printf_pro(p, "is thinking");
+	printf_pro(p, "is thinking", THINK);
 }
 
 void *life_cicl(void *ptr)
@@ -85,10 +79,6 @@ void *life_cicl(void *ptr)
 	pthread_detach(pid);
 	if (philo->position % 2 == 0 && philo->stor->input->time_to_eat > 1)
 		my_sleep(philo->stor->input->time_to_eat * 0.9, philo->stor);
-	//{
-	//	while (philo->stor->input->time_to_eat * 0.9 > 0 && philo->stor->is_dead == 0)
-	//		usleep(philo->stor->input->time_to_eat * 0.9);
-	//}
 	while (philo->stor->is_dead == 0 && (philo->how_many_times_must_eat == -1 ||
 		philo->how_many_times_must_eat > philo->how_many_times_eat))
 		eating_spaghetti(philo);

@@ -45,3 +45,11 @@ int	ft_putstr_fd(char *s, int fd)
 		write(fd, s, ft_strlen(s));
 	return (fd);
 }
+
+unsigned long	my_time(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * (unsigned long)1000) + (time.tv_usec / 1000));
+}

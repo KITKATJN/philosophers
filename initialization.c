@@ -9,17 +9,20 @@ void *check_is_dead(void *ptr)
 	{
 		usleep(100);
 		pthread_mutex_lock(&philo->eating);
-		if (my_time() - philo->last_eat > (unsigned int)philo->stor->input->time_to_die && philo->stor->is_dead == 0)
+		if (my_time() - philo->last_eat > (unsigned long)philo->stor->input->time_to_die && philo->stor->is_dead == 0)
 		{
 			philo->stor->is_dead = 1;
 			pthread_mutex_unlock(&philo->eating);
-			pthread_mutex_lock(&philo->stor->someone_dead);
+			//pthread_mutex_lock(&philo->stor->someone_dead);
 			printf("%lu ms %d died\n", (my_time() - philo->stor->time_start), philo->position);
 			return (0);
 		}
-		else if (philo->how_many_times_eat >= philo->how_many_times_must_eat
+		if (philo->how_many_times_eat >= philo->how_many_times_must_eat
 			&& philo->how_many_times_must_eat != -1 && philo->stor->is_dead == 0)
-			return (0);
+			{
+				printf("%lu ms %d eat the right number of times %s\n", (my_time() - philo->stor->time_start), philo->position, CHECK);
+				return (0);
+			}
 		pthread_mutex_unlock(&philo->eating);
 	}
 	return (0);
@@ -27,10 +30,10 @@ void *check_is_dead(void *ptr)
 
 void			printf_pro(t_philosopher *p, char *str, char *smile)
 {
-	if (p->stor->is_dead == 0 && p->stor->total_number_of_meals != 0)
+	if (p->stor->is_dead == 0)// && p->stor->total_number_of_meals != 0)
 	{
 		pthread_mutex_lock(&p->stor->print);
-		if (!p->stor->is_dead && p->stor->total_number_of_meals != 0)
+		if (p->stor->is_dead == 0)//&& p->stor->total_number_of_meals != 0)
 			printf("%lu ms %d %s %s\n", (my_time() - p->stor->time_start),
 			p->position, str, smile);
 		pthread_mutex_unlock(&p->stor->print);
@@ -56,8 +59,8 @@ void eating_spaghetti(t_philosopher *p)
 	p->last_eat = my_time();
 	printf_pro(p, "is eating", FORK_AND_PLATE);
 	p->how_many_times_eat++;
-	if (p->stor->total_number_of_meals  > 0)
-		p->stor->total_number_of_meals--;
+	// if (p->stor->total_number_of_meals  > 0)
+	// 	p->stor->total_number_of_meals--;
 	my_sleep(p->stor->input->time_to_eat, p->stor);
 	pthread_mutex_unlock(&p->eating);
 	pthread_mutex_unlock(&p->stor->arr_of_forks[p->right_fork]);
@@ -139,7 +142,6 @@ int initialization(t_storage *storage, int argc, char **argv)
 		storage->philosopher[i].right_fork = (i + 1) % storage->input->number_of_philosophers;
 		pthread_mutex_init(&storage->philosopher[i].mutex_philo, 0);
 		pthread_mutex_init(&storage->philosopher[i].eating, 0);
-		//pthread_mutex_lock(&storage->philosopher[i].eating); // нужно ли?
 		pthread_mutex_init(&storage->arr_of_forks[i], 0);
 		i++;
 	}

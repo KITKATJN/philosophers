@@ -2,7 +2,7 @@
 
 size_t	ft_strlen(const char *str)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (str[i] != 0)
@@ -22,8 +22,8 @@ long	ft_atoi(const char *nptr)
 	j = 0;
 	minus = 1;
 	while (nptr[i] == ' ' || nptr[i] == '	' || nptr[i] == '\n'
-			|| nptr[i] == '\t' || nptr[i] == '\f' ||
-			nptr[i] == '\r' || nptr[i] == '\v')
+		|| nptr[i] == '\t' || nptr[i] == '\f'
+		|| nptr[i] == '\r' || nptr[i] == '\v')
 		i++;
 	if (nptr[i] == '-' || nptr[i] == '+')
 	{

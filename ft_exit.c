@@ -1,6 +1,6 @@
 #include "philosophers.h"
 
-static void ft_exit3(t_storage *storage, int i)
+static void	ft_exit3(t_storage *storage, int i)
 {
 	if (storage->arr_of_forks != 0)
 	{
@@ -10,7 +10,7 @@ static void ft_exit3(t_storage *storage, int i)
 	}
 }
 
-static void ft_exit2(t_storage *storage, int i)
+static void	ft_exit2(t_storage *storage, int i)
 {
 	if (storage->philosopher != 0)
 	{
@@ -24,7 +24,7 @@ static void ft_exit2(t_storage *storage, int i)
 	}
 }
 
-int ft_exit(t_storage *storage)
+int	ft_exit(t_storage *storage)
 {
 	ft_exit2(storage, 0);
 	ft_exit3(storage, 0);

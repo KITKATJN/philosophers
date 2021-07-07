@@ -12,6 +12,7 @@
 # define FORK_AND_PLATE "🍽 🍝"
 # define SLEEP "🛌 💤"
 # define THINK "🤔 💭"
+# define CHECK "✅"
 
 typedef struct s_philosopher
 {

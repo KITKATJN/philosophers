@@ -5,8 +5,8 @@ static void	*check_is_dead2(t_philosopher *philo)
 	philo->stor->is_dead = 1;
 	pthread_mutex_unlock(&philo->eating);
 	pthread_mutex_lock(&philo->stor->someone_dead);
-	printf("%lu ms %d died\n", (my_time() - philo->stor->time_start),
-		philo->position);
+	printf("%lu ms %d died %s\n", (my_time() - philo->stor->time_start),
+		philo->position, DEATH);
 	return (0);
 }
 

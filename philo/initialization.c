@@ -34,8 +34,6 @@ int	check_error(t_storage *storage)
 			* storage->input->number_of_philosophers;
 	else
 		storage->total_number_of_meals = -1;
-	if (storage->input->number_of_philosophers < 2)
-		return (ft_putstr_fd("Not enough philosopfhers\n", 1));
 	if (storage->input->time_to_die < 60 || storage->input->time_to_eat < 60
 		|| storage->input->time_to_sleep < 60)
 		return (ft_putstr_fd("So little time for eat or die or sleep\n", 1));

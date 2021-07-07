@@ -13,6 +13,7 @@
 # define SLEEP "🛌 💤"
 # define THINK "🤔 💭"
 # define CHECK "✅"
+# define DEATH "💀💀💀"
 
 typedef struct s_philosopher
 {

@@ -25,6 +25,12 @@ static void	eating_spaghetti(t_philosopher *p)
 {
 	pthread_mutex_lock(&p->stor->arr_of_forks[p->right_fork]);
 	output(p, "has taken a right fork", FORK);
+	if (p->stor->input->number_of_philosophers == 1)
+	{
+		going_sleep(p->stor->input->time_to_die + 20, p->stor);
+		pthread_mutex_unlock(&p->stor->arr_of_forks[p->right_fork]);
+		return ;
+	}
 	pthread_mutex_lock(&p->stor->arr_of_forks[p->left_fork]);
 	output(p, "has taken a left fork", FORK);
 	pthread_mutex_lock(&p->eating);

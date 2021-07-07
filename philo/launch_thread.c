@@ -73,7 +73,7 @@ int	launch_thread(t_storage *storage)
 	{
 		if (pthread_create(&storage->philosopher[j].pthr,
 				0, life_cicl, (void*)&storage->philosopher[j]) != 0)
-			return (ft_putstr_fd("Can't create thread\n", 1));
+			return (1 + ft_putstr_fd("Can't create thread\n", 1));
 		j++;
 	}
 	j = 0;

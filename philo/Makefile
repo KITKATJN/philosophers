@@ -9,7 +9,7 @@ CFLAGS  = -Wall -Wextra -Werror -I. -O3
 all:	$(NAME)
 
 $(NAME):	$(OBJS)
-	$(CC) $(CFLAGS) -O3 $(OBJS)  -o $(NAME) -lpthread
+	$(CC) $(CFLAGS) -O3 $(OBJS)  -o $(NAME) -lpthread #-fsanitize=address
 
 $(OBJDIR)%.o: %.c Makefile
 	mkdir -p $(OBJDIR)

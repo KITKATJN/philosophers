@@ -7,7 +7,10 @@ int	main(int argc, char **argv)
 
 	storage.input = &input;
 	if (argc < 5 || argc > 6)
-		return (ft_putstr_fd("Wrong number of arguments\n", 1));
+		return (1 + ft_putstr_fd("Wrong number of arguments\n", 1));
+	if (ft_atoi(argv[1]) < 0 || ft_atoi(argv[2]) < 0
+		|| ft_atoi(argv[3]) < 0 || ft_atoi(argv[4]) < 0)
+		return (1 + ft_putstr_fd("One of arguments is negative\n", 1));
 	if (initialization(&storage, argc, argv))
 		return (ft_exit(&storage));
 	pthread_mutex_destroy(storage.arr_of_forks);

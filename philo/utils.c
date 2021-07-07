@@ -44,7 +44,7 @@ int	ft_putstr_fd(char *s, int fd)
 	if (s)
 		if (write(fd, s, ft_strlen(s)) != 0)
 			return (0);
-	return (fd);
+	return (0);
 }
 
 unsigned long	my_time(void)

@@ -12,7 +12,7 @@ static void	output(t_philosopher *p, char *action, char *smile)
 	}
 }
 
-static void	my_sleep(int time_to_sleep, t_storage *storage)
+static void	going_sleep(int time_to_sleep, t_storage *storage)
 {
 	unsigned long	end;
 
@@ -31,12 +31,12 @@ static void	eating_spaghetti(t_philosopher *p)
 	p->last_eat = my_time();
 	output(p, "is eating", FORK_AND_PLATE);
 	p->how_many_times_eat++;
-	my_sleep(p->stor->input->time_to_eat, p->stor);
+	going_sleep(p->stor->input->time_to_eat, p->stor);
 	pthread_mutex_unlock(&p->eating);
 	pthread_mutex_unlock(&p->stor->arr_of_forks[p->right_fork]);
 	pthread_mutex_unlock(&p->stor->arr_of_forks[p->left_fork]);
 	output(p, "is sleeping", SLEEP);
-	my_sleep(p->stor->input->time_to_sleep, p->stor);
+	going_sleep(p->stor->input->time_to_sleep, p->stor);
 	output(p, "is thinking", THINK);
 }
 
@@ -51,7 +51,7 @@ static void	*life_cicl(void *ptr)
 		return (0);
 	pthread_detach(pid);
 	if (philo->position % 2 == 0 && philo->stor->input->time_to_eat > 1)
-		my_sleep(philo->stor->input->time_to_eat * 0.9, philo->stor);
+		going_sleep(philo->stor->input->time_to_eat * 0.9, philo->stor);
 	while (philo->stor->is_dead == 0 && (philo->how_many_times_must_eat == -1
 			|| philo->how_many_times_must_eat > philo->how_many_times_eat))
 		eating_spaghetti(philo);

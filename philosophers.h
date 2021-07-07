@@ -58,5 +58,7 @@ int				ft_putstr_fd(char *s, int fd);
 unsigned long	my_time(void);
 int				ft_exit(t_storage *storage);
 int				initialization(t_storage *storage, int argc, char **argv);
+void			*check_is_dead(void *ptr);
+int				launch_thread(t_storage *storage);
 
 #endif

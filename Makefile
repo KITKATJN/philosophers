@@ -1,7 +1,7 @@
 NAME = philo
 
 OBJDIR	=	objs/
-SRCS = main.c ft_exit.c initialization.c utils.c
+SRCS = main.c ft_exit.c initialization.c utils.c check_is_dead.c launch_thread.c
 OBJ 	=	$(SRCS:.c=.o)
 OBJS	= 	$(addprefix $(OBJDIR), $(OBJ))
 

@@ -11,7 +11,7 @@ all:	$(NAME)
 $(NAME):	$(OBJS)
 	$(CC) $(CFLAGS) -O3 $(OBJS)  -o $(NAME) -lpthread #-fsanitize=address
 
-$(OBJDIR)%.o: %.c Makefile
+$(OBJDIR)%.o: %.c Makefile philosophers.h
 	mkdir -p $(OBJDIR)
 	gcc -c $< -o $@
 
